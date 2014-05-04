@@ -29,7 +29,7 @@ session_start();
 FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c4d0fabaae06' );
  
 // login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/' );
+$helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/getpageaccesstoken.php' );
  
 try {
   $session = $helper->getSessionFromRedirect();
@@ -38,6 +38,8 @@ try {
 } catch( Exception $ex ) {
   // When validation fails or other local issues
 }
+
+
  
 // see if we have a session
 if ( isset( $session ) ) {
@@ -49,7 +51,26 @@ if ( isset( $session ) ) {
   
   // print data
   echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+
+  $graph_query = $graphObject->getProperty('id');
+  $graph_query = '/' . $graph_query . '/accounts';
+
+  //graph request for list of pages
+  $pagetokenrequest = new FacebookRequest( $session, 'GET', $graph_query);
+  $pagetokenresponse = $pagetokenrequest->execute();
+
+  //get response
+  $pagetokenObject = $pagetokenresponse->getGraphObject();
+
+  echo '<pre>';
+    print_r($pagetokenObject);
+  echo '</pre>';
+
 } else {
   // show login url
-  echo '<a href="' . $helper->getLoginUrl() . '">Login</a>';
+  $params = array(
+    'scope' => 'manage_pages',
+  );
+
+  echo '<a href="' . $helper->getLoginUrl($params) . '">Login</a>';
 }
