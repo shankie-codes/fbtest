@@ -29,7 +29,7 @@ session_start();
 FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c4d0fabaae06' );
  
 // login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper( 'http://localhost:8888/facebook-php-sdk-v4/' );
+$helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/' );
  
 try {
   $session = $helper->getSessionFromRedirect();
