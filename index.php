@@ -29,7 +29,7 @@ session_start();
 FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c4d0fabaae06' );
  
 // login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper( 'http://localhost:8888/facebook-php-sdk-v4/' );
+$helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/index.php' );
  
 try {
   $session = $helper->getSessionFromRedirect();
@@ -49,7 +49,33 @@ if ( isset( $session ) ) {
   
   // print data
   echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+
+
+  try {
+
+    include 'postphotototimeline.php';
+
+    echo $graphObject;
+
+    echo new FacebookRequest( 'GET' , $response->getProperty('id') , 'permissions');
+
+  } catch(FacebookRequestException $e) {
+
+    echo "Exception occured, code: " . $e->getCode();
+    echo " with message: " . $e->getMessage();
+
+  }   
+
+
 } else {
+
+  $params = array(
+    'scope' => 'read_stream, user_friends, friends_likes, publish_actions',
+  );
+
   // show login url
-  echo '<a href="' . $helper->getLoginUrl() . '">Login</a>';
+  echo '<a href="' . $helper->getLoginUrl($params) . '">Login</a>';
+
+
+
 }
