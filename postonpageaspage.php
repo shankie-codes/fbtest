@@ -52,8 +52,8 @@ if ( isset( $session ) ) {
   // get response
   $graphObject = $response->getGraphObject();
   
-  // print data
-  echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
+  // print user data
+  // echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
 
   $graph_query = $graphObject->getProperty('id');
   $graph_query = '/' . $graph_query . '/accounts';
@@ -66,10 +66,29 @@ if ( isset( $session ) ) {
   $pagetokenObject = $pagetokenresponse->getGraphObject();
 
   $pagetokenid = $pagetokenObject->getPropertyAsArray('data')[0]->getProperty('access_token');
-
+  $pageid = $pagetokenObject->getPropertyAsArray('data')[0]->getProperty('id');
 
   echo '<pre>';
     print_r($pagetokenid);
+  echo '</pre>';
+
+  echo '<pre>';
+    print_r($pageid);
+  echo '</pre>';
+
+  // graph api request to post a message
+  $url = '/' . $pageid . '/feed';
+  $params = array(
+    'message' => 'hi there',
+    // 'access_token' => $pagetokenid
+    );
+  $request = new FacebookRequest( $session, 'POST', $url, $params);
+  $response = $request->execute();
+  // get response
+  $graphObject = $response->getGraphObject();
+
+  echo '<pre>';
+    print_r($graphObject);
   echo '</pre>';
 
 } else {
