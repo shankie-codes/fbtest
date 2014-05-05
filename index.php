@@ -23,7 +23,8 @@ use Facebook\FacebookAuthorizationException;
 use Facebook\GraphObject;
  
 // start session
-session_start();
+// session_start();
+
  
 // init app with app id and secret
 FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c4d0fabaae06' );
@@ -32,7 +33,7 @@ FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c
 
 $helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/index.php' );
 
-include 'bendickingaroundfile.php';
+// include 'bendickingaroundfile.php';
 include 'shankiedickingaroundfile.php';
 
 ?>
