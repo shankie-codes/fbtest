@@ -29,9 +29,13 @@ if ( isset( $session ) ) {
   echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
 
 
+  echo '<pre>'.print_r($session). '</pre>';
+
   try {
 
-    //include 'postphotototimeline.php';
+    echo 'bum';
+
+    include 'poststatustotimeline.php';
 
     $user_id =  $graphObject->getProperty('id');
 
@@ -40,7 +44,7 @@ if ( isset( $session ) ) {
 
     //echo '<pre>'. print_r($data). '</pre>';
 
-    $permissions = (new FacebookRequest( $session, 'GET' , '/me/permissions' ))->execute();
+    $permissions = (new FacebookRequest( $session, 'GET' , page_id .'/permissions' ))->execute();
     //$permissionObject = $permissions->getGraphObject
 
     echo '<pre>'. print_r($permissions->getGraphObject(), 1). '</pre>';
@@ -56,7 +60,7 @@ if ( isset( $session ) ) {
 } else {
 
   $params = array(
-    'scope' => 'read_stream, user_friends, friends_likes, publish_actions',
+    'scope' => 'read_stream, user_friends, friends_likes, publish_actions, manage_pages',
   );
 
   // show login url

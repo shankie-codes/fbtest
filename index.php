@@ -27,12 +27,15 @@ session_start();
  
 // init app with app id and secret
 FacebookSession::setDefaultApplication( '235958703262480','f608ec2687f60c051396c4d0fabaae06' );
+
+//set Page id to worl with
+
+define('page_id', '/276813939159864');
  
 // login helper with redirect_uri
 
 $helper = new FacebookRedirectLoginHelper( 'http://localhost/fbtest/index.php' );
 
 include 'bendickingaroundfile.php';
-include 'shankiedickingaroundfile.php';
 
 ?>
